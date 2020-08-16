@@ -1,0 +1,20 @@
+#----Sliding Window Technique=O(n)---
+class Solution:
+    def totalFruit(self, tree: List[int]) -> int:
+        freq={}
+        windowStart=0
+        no_of_baskets=2
+        max_no_of_fruits=0
+        for windowEnd in range(0,len(tree)):
+            if tree[windowEnd] in freq:
+                freq[tree[windowEnd]]+=1
+            else:
+                freq[tree[windowEnd]]=1
+            while len(freq)>no_of_baskets:
+                freq[tree[windowStart]]-=1
+                if freq[tree[windowStart]]==0:
+                    del freq[tree[windowStart]]
+                windowStart+=1
+                
+            max_no_of_fruits=max(max_no_of_fruits,sum(freq.values()))
+        return max_no_of_fruits
